@@ -14,5 +14,5 @@ As of now, these are meant to be used in a Python interpreter, not from the comm
 To use these modules, you'll need the Pandas, ScikitLearn, Scipy/Numpy, Keras, and TensorFlow modules, in addition to a working installation of Python (the code was written using 2.7.x). The code is also not optimized for speed or efficiency, and calling certain functions on large datasets may cause Python to throw a MemoryError. 
 
 ## references
-Bahdanau D, Cho K, Bengio Y. Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473. 2014 Sep 1.[PDF] (https://arxiv.org/pdf/1409.0473.pdf)
+Bahdanau D, Cho K, Bengio Y. Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473. 2014 Sep 1. [PDF] (https://arxiv.org/pdf/1409.0473.pdf)
 
