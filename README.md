@@ -3,7 +3,7 @@ This is a collection of simple scripts for doing NLP in TensorFlow and Keras. Th
 
 ## what's included
   1. text_helpers.py is a bargain bin of classes and methods used in the other scripts. ```make_skipgrams()``` is kind of cool, and the batch generators can be pretty useful if you're not already using ones from another machine learning library. 
-  2. fast_text.py sort of reproduces the [fastText](https://github.com/facebookresearch/fastText) algorithm released by [Facebook AI Research](https://research.fb.com/category/facebook-ai-research-fair/). It's not as fast, and it's a little hand-wavy with the assumptions behind the original model, but the main components are the same: feature vectors, embedding lookup, and a linear classifier with softmax cross-entropy loss. 
+  2. slow_text.py sort of reproduces the [fastText](https://github.com/facebookresearch/fastText) algorithm released by [Facebook AI Research](https://research.fb.com/category/facebook-ai-research-fair/). It's not as fast, and it's a little hand-wavy with the assumptions behind the original model, but the main components are the same: feature vectors, embedding lookup, and a linear classifier with softmax cross-entropy loss. 
   3. lstm_lm.py implements a very simple [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) language model in Keras. Given a sequence of n words, it is trained to predict the n+1th word. Fancy!
   4. lstm_phrases_keras.py performs the slightly more complex task of phrase/sentence/document classification using LSTMs, also in Keras. Because Keras does not natively support attention layers, this model only uses the final output from the LSTM as the dense sequence representation, rather than a weighted sum of all the outputs.
 
