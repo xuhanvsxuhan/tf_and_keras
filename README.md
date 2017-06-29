@@ -16,7 +16,13 @@ As of now, these are meant to be used in a Python interpreter, not from the comm
 To use these modules, you'll need the [Pandas](http://pandas.pydata.org/), [ScikitLearn](http://scikit-learn.org/stable/), [Numpy](http://www.numpy.org/), [Keras](https://keras.io/), and [TensorFlow](https://www.tensorflow.org/) modules, in addition to a working installation of Python (the code was written using 2.7.x). The code is also not optimized for speed or efficiency, and calling certain functions on large datasets may cause Python to throw a MemoryError. 
 
 ## references
-Bahdanau D, Cho K, Bengio Y. Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473. 2014 Sep 1. [PDF](https://arxiv.org/pdf/1409.0473.pdf)
+Bahdanau D, Cho K, Bengio Y. Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473. 2014 Sep 1. [pdf](https://arxiv.org/pdf/1409.0473.pdf)
 
-Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J. Distributed representations of words and phrases and their compositionality. InAdvances in neural information processing systems 2013 (pp. 3111-3119). [PDF](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf)
+Cao K, Rei M. A joint model for word embedding and word morphology. arXiv preprint arXiv:1606.02601. 2016 Jun 8. [pdf](https://arxiv.org/pdf/1606.02601.pdf)
+
+Kim Y, Jernite Y, Sontag D, Rush AM. Character-Aware Neural Language Models. InAAAI 2016 Feb 12 (pp. 2741-2749). [pdf](https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/viewFile/12489/12017)
+
+Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J. Distributed representations of words and phrases and their compositionality. InAdvances in neural information processing systems 2013 (pp. 3111-3119). [pdf](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf)
+
+Sutskever I, Vinyals O, Le QV. Sequence to sequence learning with neural networks. InAdvances in neural information processing systems 2014 (pp. 3104-3112). [pdf](http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf)
 
