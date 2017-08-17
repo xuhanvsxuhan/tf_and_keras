@@ -1,14 +1,12 @@
 '''Trains a (very simple) LSTM language model on a corpus of documents using Keras'''
+import numpy as np
+import pandas as pd
+
 from keras.models import Sequential, Model
-from keras import backend as K
 from keras.layers import Dense, Activation, LSTM
 from keras.layers.embeddings import Embedding
 from keras.optimizers import RMSprop
 from keras.utils.data_utils import get_file
-
-import numpy as np
-import pandas as pd
-import tensorflow as tf
 
 # Kludgy function for looking up a word by its vocabulary index
 def index_lookup(num, df, word_column=0, index_column=1, word_dtype='unicode'):
@@ -30,12 +28,12 @@ WINDOW_SIZE = 10
 # Doing some math to make the word windows
 vocab_size = np.max(int_corpus)
 num_tokens = len(int_corpus)
-num_windows = (num_tokens / (window_size + 1)) + (num_tokens % (window_size + 1))
-num_batches = num_windows / batch_size
+num_windows = (num_tokens / (WINDOW_SIZE + 1)) + (num_tokens % (WINDOW_SIZE + 1))
+num_batches = num_windows / BATCH_SIZE
 
 # Building and compiling the model
 model = Sequential()
-model.add(LSTM(128, input_shape=(window_size, vocab_size)))
+model.add(LSTM(128, input_shape=(WINDOW_SIZE, vocab_size)))
 model.add(Dense(vocab_size))
 model.add(Activation('softmax'))
 optimizer = RMSprop(lr=0.01)
@@ -47,22 +45,22 @@ if TRAIN_IN_BATCHES:
         
         # Training the model on batches
         for batch_num in range(num_batches):
-            start = batch_num * batch_size
-            end = start + batch_size
+            start = batch_num * BATCH_SIZE
+            end = start + BATCH_SIZE
             current_windows = range(num_windows)[start:end]
             
             # Setting up empty arrays for the training data
-            X = np.zeros([batch_size, window_size, vocab_size], dtype=int)
-            y = np.zeros([batch_size, vocab_size + 1], dtype=int)
+            X = np.zeros([BATCH_SIZE, WINDOW_SIZE, vocab_size], dtype=int)
+            y = np.zeros([BATCH_SIZE, vocab_size + 1], dtype=int)
             
             # Converting the 1D arrays of integers to 2D matrics of 1-hot vectors
             for window_num in current_windows:
-                max = window_num + window_size
+                max = window_num + WINDOW_SIZE
                 phrase = int_corpus[window_num:max]
-                for j in range(window_size):
-                    X[window_num - (batch_num * batch_size), j, phrase[j]] = 1
+                for j in range(WINDOW_SIZE):
+                    X[window_num - (batch_num * BATCH_SIZE), j, phrase[j]] = 1
                 next_word = int_corpus[max]
-                y[window_num - (batch_num * batch_size), next_word] = 1
+                y[window_num - (batch_num * BATCH_SIZE), next_word] = 1
             
             # Removing dummy column from y
             y = np.delete(y, 0, 1)
@@ -72,13 +70,13 @@ if TRAIN_IN_BATCHES:
 
 else:
     # Setting up the training data
-    X = np.zeros([num_windows, window_size, vocab_size], dtype=int)
+    X = np.zeros([num_windows, WINDOW_SIZE, vocab_size], dtype=int)
     y = np.zeros([num_windows, vocab_size + 1], dtype=int)
     
     for i in range(num_windows):
-    	max = i + window_size
+    	max = i + WINDOW_SIZE
     	phrase = int_corpus[i:max]
-    	for j in range(window_size):
+    	for j in range(WINDOW_SIZE):
     		X[i, j, phrase[j]] = 1
     	next = int_corpus[max]
     	y[i, next] = 1
@@ -87,4 +85,4 @@ else:
     y = np.delete(y, 0, 1)
     
     # Training the model
-    model.fit(X, y, batch_size=128, epochs=4)
+    model.fit(X, y, BATCH_SIZE=128, epochs=EPOCHS)
