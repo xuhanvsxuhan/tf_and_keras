@@ -1,4 +1,10 @@
-'''Objects and methods to support text corpus storage and manipulation'''
+"""
+Objects and functions to support text corpus storage and manipulation.
+
+Generally, the functions are good-enough but not great, i.e. they prioritize
+readability over compactness and readability, so feel free to adapt them to
+suit your particular project.
+"""
 import numpy as np
 import pandas as pd
 
@@ -8,8 +14,16 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.utils import shuffle
 from gensim.models.word2vec import *
 
-'''Batch iterators for working with large datasets'''
+# Batch iterators for working with large datasets
 class BatchGenerator:
+	"""
+	Batch geneartor for X and y arrays.
+	
+	This is great for small-ish datasets where you can hold the full X and y
+	arrays in memory, but for larger datasets, you'll want to use the 
+	IndexBatchGenerator below, which returns an iterable of indices rather than
+	of subsets of the data.
+	"""
 	def __init__(self, X, y, size=32):
 		max = len(y)
 		n_batches = (max / size) + (max % size)
@@ -17,6 +31,13 @@ class BatchGenerator:
 		self.y = np.array_split(y, n_batches)
 
 class IndexBatchGenerator:
+	"""
+	Another batch generator.
+	
+	This takes a range of indices (usually 0 to the length of the full dataset)
+	and returns a(n optionally shuffled) iterable of batch indices to use for
+	training and testing.
+	"""
 	def __init__(self, indices, size=32, shuff=False, seed=None):
 		max = len(indices)
 		n_batches = (max / size)
@@ -40,7 +61,7 @@ class BalancedBatch:
         self.X = bal[:, :-2]
         self.y = bal[:, -2:]
 
-'''Helper functions for manipulating the text corpus'''
+# Helper functions for working with text datasets
 def balance(pos, neg):
 	num_pos = len(pos)
 	samps = np.random.randint(0, len(neg), num_pos)
