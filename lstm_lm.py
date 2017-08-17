@@ -1,4 +1,7 @@
-'''Trains a (very simple) LSTM language model on a corpus of documents using Keras'''
+"""
+Trains a (very simple) LSTM language model on a corpus of documents using Keras.
+
+"""
 import numpy as np
 import pandas as pd
 

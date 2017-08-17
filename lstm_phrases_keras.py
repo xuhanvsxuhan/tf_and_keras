@@ -1,4 +1,7 @@
-'''Trains a bidirectional LSTM to classify phrases (code from Keras documentation)'''
+"""
+Trains a bidirectional LSTM to classify phrases (code from Keras documentation).
+
+"""
 import numpy as np
 import pandas as pd
 
@@ -8,8 +11,7 @@ from keras.initializers import RandomUniform
 from keras.layers import Dense, Dropout, Embedding, LSTM, Bidirectional, Masking
 from sklearn.model_selection import StratifiedShuffleSplit
 
-'''Some helper functions for manipulating the data'''
-#thresholds probabilities for binary classification
+# Thresholds probabilities for binary classification
 def bin_thresh(vals, threshold=.5):
 	out = np.zeros([len(vals)], dtype=int)
 	for i in range(len(vals)):
@@ -35,7 +37,6 @@ targets = pd.read_csv(targets_location)
 max_features = embedding_matrix.shape[0]
 max_length = int_sents.shape[1]
 
-'''Building, training, and evaluating the model'''
 # Getting the training, test, and validation indices for the batch generator
 sss = StratifiedShuffleSplit(n_splits=1, test_size=.25)
 for train, test in sss.split(int_sents, targets):
