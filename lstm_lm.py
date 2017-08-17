@@ -21,11 +21,11 @@ def index_lookup(num, df, word_column=0, index_column=1, word_dtype='unicode'):
 int_corpus = np.array(pd.read_csv(input))
 
 #global parameters
-train_in_batches = True
-embed_sequences = True
-epochs = 4
-batch_size = 32
-window_size = 10
+TRAIN_IN_BATCHES = True
+EMBED_SEQUENCES = True
+EPOCHS = 4
+BATCH_SIZE = 32
+WINDOW_SIZE = 10
 
 # Doing some math to make the word windows
 vocab_size = np.max(int_corpus)
@@ -41,8 +41,8 @@ model.add(Activation('softmax'))
 optimizer = RMSprop(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['acc'])
 
-if train_in_batches:
-    for epoch in range(epochs):
+if TRAIN_IN_BATCHES:
+    for epoch in range(EPOCHS):
         print('Epoch number %s' %epoch)
         
         # Training the model on batches
