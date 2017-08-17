@@ -1,7 +1,6 @@
-'''Trains a bidirectional LSTM on the ADDM annotated phrases (code from Keras documentation)'''
+'''Trains a bidirectional LSTM to classify phrases (code from Keras documentation)'''
 import numpy as np
 import pandas as pd
-import tensorflow as tf
 
 from keras import optimizers
 from keras.models import Sequential
@@ -18,19 +17,23 @@ def bin_thresh(vals, threshold=.5):
 			out[i] = 1
 	return out
 
+# Global parameters
+BATCH_SIZE = 128
+EMBEDDING_SIZE = 200
+LSTM_SIZE = 100
+EPOCHS = 4
+TRIM_TO = 50
+
 # Importing the phrase data
-trim_to = 50
 int_sents = np.array(pd.read_csv(corpus_location))
 vocab = pd.read_csv(vocabulary_location)
 vocab_dict = dict(zip(vocab.iloc[:, 0], vocab.iloc[:, 1]))
 embedding_matrix = np.array(pd.read_csv(embedding_location))
 targets = pd.read_csv(targets_location)
 
-# Setting global parameters
+# Other parameters for the LSTM
 max_features = embedding_matrix.shape[0]
 max_length = int_sents.shape[1]
-batch_size = 128
-epochs = 4
 
 '''Building, training, and evaluating the model'''
 # Getting the training, test, and validation indices for the batch generator
@@ -49,14 +52,14 @@ def my_init(shape, dtype=None):
 
 # Building the model graph
 model = Sequential()
-model.add(Embedding(max_features, 200, embeddings_initializer=my_init, mask_zero=True))
-model.add(Bidirectional(LSTM(100)))
+model.add(Embedding(max_features, EMBEDDING_SIZE, embeddings_initializer=my_init, mask_zero=True))
+model.add(Bidirectional(LSTM(LSTM_SIZE)))
 model.add(Dropout(.5))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 #training the model
-model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, validation_data=[X_val, y_val])
+model.fit(X_train, y_train, BATCH_SIZE=BATCH_SIZE, EPOCHS=EPOCHS, validation_data=[X_val, y_val])
 
 #evaluating the model
 guesses = model.predict(X_test)
